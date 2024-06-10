@@ -14,7 +14,7 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request): \Illuminate\Contracts\View\View
     {
-        $tweets = Tweet::all();
+        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
         return
             View::make('tweet.index')
                 ->with('tweets', $tweets);

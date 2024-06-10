@@ -14,6 +14,11 @@ class CreateRequest extends FormRequest
         return true;
     }
 
+    public function tweet(): string
+    {
+        return $this->input('tweet');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
