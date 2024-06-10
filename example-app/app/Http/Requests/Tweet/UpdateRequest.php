@@ -26,6 +26,11 @@ class UpdateRequest extends FormRequest
         ];
     }
 
+    public function id(): int
+    {
+        return (int)$this->route('tweetId');
+    }
+
     public function tweet(): string
     {
         return $this->input('tweet');
