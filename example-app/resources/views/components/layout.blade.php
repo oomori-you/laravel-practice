@@ -11,6 +11,7 @@
     @vite('resources/js/app.js')
 
     <title>{{ $title ?? 'つぶやきアプリ' }}</title>
+    @stack('css')
 </head>
 
 <body class="bg-gray-50">
