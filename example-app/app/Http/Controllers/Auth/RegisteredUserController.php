@@ -38,18 +38,24 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        $newUser = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        event(new Registered($newUser));
 
-        event(new Registered($user));
-
-        Auth::login($user);
+        Auth::login($newUser);
 
         // メール送信
-        $mailer->to('test@example.com')->send(new NewUserIntroduction());
+        $allUser = User::get();
+        foreach ($allUser as $user) {
+            if ($newUser->id === $user->id) {
+                // 自分には送らない
+                continue;
+            }
+            $mailer->to($user->email)->send(new NewUserIntroduction($user, $newUser));
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }
