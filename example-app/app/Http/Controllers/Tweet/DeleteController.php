@@ -19,8 +19,7 @@ class DeleteController extends Controller
         if (!$tweetService->checkOwnTweet($request->user()->id, $tweetId)) {
             throw new AccessDeniedHttpException();
         }
-
-        Tweet::destroy($tweetId);
+        TweetService::deleteTweet($tweetId);
 
         return redirect()
             ->route('tweet.index')
