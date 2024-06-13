@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Tweet;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,8 @@ class TweetFactory extends Factory
     {
         return [
             'user_id' => 1,
-            'content' => $this->faker->realText(100)
+            'content' => $this->faker->realText(100),
+            'created_at' => Carbon::now()->yesterday()
         ];
     }
 }
